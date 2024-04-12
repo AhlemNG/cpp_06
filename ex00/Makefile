@@ -1,4 +1,4 @@
-NAME= Bureaucrat
+NAME= convert
 
 INCDIR= -I./incs
 

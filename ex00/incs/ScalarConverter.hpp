@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:04:43 by anouri            #+#    #+#             */
-/*   Updated: 2024/04/09 18:00:26 by anouri           ###   ########.fr       */
+/*   Updated: 2024/04/12 17:19:43 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@
 #include "Colors.hpp"
 #include <iostream>
 #include <string>
+#include <cctype> //for isprint
 #include <exception>
+#include <cmath>
+#include <limits>
+// #include <cstdlib>
 
 
 /*static method is a class level function that is 
@@ -38,21 +42,17 @@ class ScalarConverter
         ScalarConverter & operator=(const ScalarConverter &rhs);
 
         static void convert(std::string str);
-        bool isChar(std::string str);
-        bool isInt(std::string str);
-        bool isFloat(std::string str);
-        bool isDouble(std::string str);
-        int getType(std::string str);
-        void fromChar(std::string str);
-        void fromInt(std::string str);
-        void fromFloat(std::string str);
-        void fromDouble(std::string str);
+        static int getType(std::string str);
+        static void fromChar(std::string str);
+        static void fromInt(std::string str);
+        static void fromFloat(std::string str);
+        static void fromDouble(std::string str);
         class notAvalidArgument : std::exception
         {
            public:
                 using exception::what;
                 const char *what() const throw();
-        }
+        };
 };
 
 

@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:04:43 by anouri            #+#    #+#             */
-/*   Updated: 2024/04/12 17:19:43 by anouri           ###   ########.fr       */
+/*   Updated: 2024/04/12 17:41:49 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ class ScalarConverter
         static void fromInt(std::string str);
         static void fromFloat(std::string str);
         static void fromDouble(std::string str);
+        static bool isPseudoLiteral(std::string str);
         class notAvalidArgument : std::exception
         {
            public:

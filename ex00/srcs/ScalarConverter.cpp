@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:39:11 by anouri            #+#    #+#             */
-/*   Updated: 2024/04/12 17:18:44 by anouri           ###   ########.fr       */
+/*   Updated: 2024/04/12 17:49:27 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void ScalarConverter::fromChar(std::string str)
     char c = static_cast<char>(str[0]);
 
     if (isprint(c))
-        std::cout << "Char: " << c << std::endl;  
+        std::cout << "Char: " << "'" << c << "'" << std::endl;  
     else
         std::cout << "char: " << "Non displayable" << std::endl;  
     std::cout << "int: " << static_cast<int>(c) << std::endl;  
@@ -80,13 +80,6 @@ void ScalarConverter::fromChar(std::string str)
 
 }
 
-// static int str_to_int( std::string & s )
-// {
-//     int i;
-//     std::istringstream(s) >> i;
-//     return i;
-// }
-
 
 void ScalarConverter::fromInt(std::string str)
 {
@@ -94,13 +87,13 @@ void ScalarConverter::fromInt(std::string str)
 	long int i = strtol(str.c_str(), &pEnd, 10);
     if (i > std::numeric_limits<int>::max() || i < std::numeric_limits<int>::min()) // check for overfow
         throw(ScalarConverter::notAvalidArgument());
-    if (isprint(static_cast<char>(i)))
-        std::cout << "char: " << static_cast<char>(i) << std::endl;  
+    if (i >= 0  && i <= 127 && isprint(static_cast<char>(i)))
+        std::cout << "char: '" << static_cast<char>(i) << "'" << std::endl;  
     else 
         std::cout << "char: " << "Non displayable" << std::endl;  
     std::cout << "int: " << static_cast<int>(i) << std::endl;  
-    std::cout << "float: " << static_cast<float>(i) << std::endl;  
-    std::cout << "double: " << static_cast<double>(i) << std::endl;  
+    std::cout << "float: " << static_cast<float>(i) << ".0f" << std::endl;  
+    std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;  
     
 }
 
@@ -114,9 +107,17 @@ void ScalarConverter::fromInt(std::string str)
 
 // }
 
+bool ScalarConverter::isPseudoLiteral(std::string str)
+{
+    (void)(str);
+    return(false);
+}
+
 void ScalarConverter::convert(std::string str)
 {
     int type;
+    if (isPseudoLiteral(str))
+        return;
     try{
         type = getType(str);
         std::cout << "type is " << type << std::endl;

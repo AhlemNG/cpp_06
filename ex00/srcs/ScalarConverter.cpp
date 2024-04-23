@@ -55,7 +55,7 @@ int ScalarConverter::getType(std::string str)
         }
         else if (str[i] == 'f' && i == str.length() - 1)
             return (3);//float
-        else if (isdigit(str[i]) && points && i == str.length() - 1)
+        else if (isdigit(str[i]) && points && 0 == str.length() - 1)
             return (4);//double
         else if (!isdigit(str[i]))
             throw(ScalarConverter::notAvalidArgument());
@@ -92,20 +92,44 @@ void ScalarConverter::fromInt(std::string str)
     else 
         std::cout << "char: " << "Non displayable" << std::endl;  
     std::cout << "int: " << static_cast<int>(i) << std::endl;  
-    std::cout << "float: " << static_cast<float>(i) << ".0f" << std::endl;  
-    std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;  
-    
+    std::cout << "float: " << static_cast<float>(i) << ".0f" << std::endl; 
+    std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;
 }
 
-// void ScalarConverter::fromFloat(std::string str)
-// {
+
+void ScalarConverter::fromDouble(std::string str)
+{
+    char *pEnd;
+    floatd;
+   d = strtod(str.c_str(), &pEnd);
+    if (pEnd == str.c_str())
+    {
+        throw std::invalid_argument("Invalid argument");
+    }
+    //to char;
+    if (d >= 0  &&d <= 127 && isprint(static_cast<char>(d)))
+        std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;  
+    else 
+        std::cout << "char: " << "Non displayable" << std::endl;
+    //to int
+    if (std::isnan(d) ||d > std::numeric_limits<int>::max() ||d < std::numeric_limits<int>::min()) // checkdor overfow
+        throw(ScalarConverter::notAvalidArgument());
+    else
+        std::cout << "int: " << static_cast<int>(d) << std::endl;
+    /*calculate precision*/
+    size_t pos = str.find(".");
+    int precision = 0;
+    if(pos != std::string::npos)
+    {
+        precision = str.length() - pos - 1;
+    }
+
+    // to float
+
+    //to double
     
-// }
 
-// void ScalarConverter::fromDouble(std::string str)
-// {
-
-// }
+}
 
 bool ScalarConverter::isPseudoLiteral(std::string str)
 {

@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:04:43 by anouri            #+#    #+#             */
-/*   Updated: 2024/04/12 17:41:49 by anouri           ###   ########.fr       */
+/*   Updated: 2024/04/23 09:33:49 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #include <exception>
 #include <cmath>
 #include <limits>
+#include <iostream>     // std::cout, std::fixed
+#include <iomanip>      // std::setprecision
 // #include <cstdlib>
 
 

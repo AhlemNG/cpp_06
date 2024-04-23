@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:39:11 by anouri            #+#    #+#             */
-/*   Updated: 2024/04/12 17:49:27 by anouri           ###   ########.fr       */
+/*   Updated: 2024/04/23 11:28:02 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,9 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &rhs)
     return(*this);
 }
 
-
 int ScalarConverter::getType(std::string str)
 {
     bool points = false;
-    // int dbl = 0;
-    // int flt = 0;
     unsigned long i = 0;
     if (str.length() == 1 && isprint(str[0]) && !isdigit(str[0]))
         return (1);//char
@@ -55,7 +52,7 @@ int ScalarConverter::getType(std::string str)
         }
         else if (str[i] == 'f' && i == str.length() - 1)
             return (3);//float
-        else if (isdigit(str[i]) && points && 0 == str.length() - 1)
+        else if (isdigit(str[i]) && points && i == str.length() - 1)
             return (4);//double
         else if (!isdigit(str[i]))
             throw(ScalarConverter::notAvalidArgument());
@@ -96,26 +93,60 @@ void ScalarConverter::fromInt(std::string str)
     std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;
 }
 
-
+void ScalarConverter::fromFloat(std::string str)
+{
+    char *pEnd;
+    float f;
+    f = strtof(str.c_str(), &pEnd);
+    if (*(pEnd + 1) != '\0')
+		throw notAvalidArgument();
+    //to char;
+    if (!isprint(static_cast<char>(f)))
+        std::cout << "char: " << "Non displayable" << std::endl;
+    else 
+        std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;  
+    //to int
+    std::cout << "int: " << static_cast<int>(f) << std::endl;
+    size_t pos = str.find(".");
+    int precision = 0;
+    if(pos != std::string::npos)
+    {
+        precision = str.length() - pos - 1;
+    }
+    if (precision < 6)
+    {
+        // to float
+        std::cout << "float: " << f << "f" << std::endl; 
+        //to double
+        std::cout << "double: " << static_cast<double>(f)<< std::endl;
+    }
+    else
+    {
+        // to float
+        std::cout  << std::fixed << std::setprecision(precision) <<"float: " << f << "f" << std::endl; 
+        //to double
+        std::cout <<  std::fixed << std::setprecision(precision) << "double: " << static_cast<double>(f) <<  std::endl;
+    }
+}
 void ScalarConverter::fromDouble(std::string str)
 {
     char *pEnd;
-    floatd;
-   d = strtod(str.c_str(), &pEnd);
+    double d;
+    d = strtod(str.c_str(), &pEnd);
     if (pEnd == str.c_str())
     {
         throw std::invalid_argument("Invalid argument");
     }
+    if (pEnd == str || *(pEnd) != '\0' || d > std::numeric_limits<double>::max() || d < -std::numeric_limits<double>::max())
+		throw notAvalidArgument();
+    
     //to char;
-    if (d >= 0  &&d <= 127 && isprint(static_cast<char>(d)))
-        std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;  
-    else 
+    if (!isprint(static_cast<char>(d)))
         std::cout << "char: " << "Non displayable" << std::endl;
+    else 
+        std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;  
     //to int
-    if (std::isnan(d) ||d > std::numeric_limits<int>::max() ||d < std::numeric_limits<int>::min()) // checkdor overfow
-        throw(ScalarConverter::notAvalidArgument());
-    else
-        std::cout << "int: " << static_cast<int>(d) << std::endl;
+    std::cout << "int: " << static_cast<int>(d) << std::endl;
     /*calculate precision*/
     size_t pos = str.find(".");
     int precision = 0;
@@ -123,17 +154,50 @@ void ScalarConverter::fromDouble(std::string str)
     {
         precision = str.length() - pos - 1;
     }
-
-    // to float
-
-    //to double
-    
-
+    if (precision < 6)
+    {
+        // to float
+        std::cout << "float: " << static_cast<float>(d) << "f" << std::endl; 
+        //to double
+        std::cout << "double: " << d <<  std::endl;
+    }
+    else
+    {
+        // to float
+        std::cout  << std::fixed << std::setprecision(precision) <<"float: " << static_cast<float>(d) << "f" << std::endl; 
+        //to double
+        std::cout <<  std::fixed << std::setprecision(precision) << "double: " << (d) <<  std::endl;
+    }
 }
 
 bool ScalarConverter::isPseudoLiteral(std::string str)
 {
     (void)(str);
+    char sign = '\0';
+    const char *pseudo[] = {"nan" , "nanf", "-inf", "+inf", "inf", "-inff", "+inff", "inff"};
+    for (int i = 0; i < 8; i++)
+    {
+        if (pseudo[i] == str)
+        {
+            if (str[0] == '-')
+                sign = '-';
+            if (i < 2)
+            {
+                std::cout << "char: " << "impossible" << std::endl;
+                std::cout << "int: " << "impossible" << std::endl;
+                std::cout  << "float: " <<"nanf" << std::endl; 
+                std::cout <<  "double: " << "nan" <<  std::endl;
+            }
+            else
+            {
+                std::cout << "char: '" << "inpossible" << std::endl;
+                std::cout << "int: " << "impossible" << std::endl;
+                std::cout << "float: " << sign << "inf" << std::endl; 
+                std::cout <<  "double: " << sign << "inff" <<  std::endl;
+            }
+            return (true);
+        }
+    }
     return(false);
 }
 
@@ -153,12 +217,12 @@ void ScalarConverter::convert(std::string str)
             case 2:
                 fromInt(str);
                 break;   
-        //     case 3:
-        //         fromFloat(str);
-        //         break;
-        //     case 4:
-        //         fromDouble(str);
-        //         break;
+            case 3:
+                fromFloat(str);
+                break;
+            case 4:
+                fromDouble(str);
+                break;
             default:
                 break; 
         }

@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:04:43 by anouri            #+#    #+#             */
-/*   Updated: 2024/04/23 12:36:48 by anouri           ###   ########.fr       */
+/*   Updated: 2024/05/02 16:04:05 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #include <iostream>     // std::cout, std::fixed
 #include <iomanip>      // std::setprecision
 // #include <cstdlib>
-
+//commentaire
 
 /*static method is a class level function that is 
 associated with the class itself rather then with 

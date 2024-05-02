@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:32:20 by anouri            #+#    #+#             */
-/*   Updated: 2024/04/23 12:18:55 by anouri           ###   ########.fr       */
+/*   Updated: 2024/05/02 13:36:02 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ class Serializer
         ~Serializer();
         Serializer(const Serializer &src);
         Serializer & operator=(const Serializer &rhs);
-       static uintptr_t serialize(Data* ptr);
-       static Data* deserialize(uintptr_t raw);
+        static uintptr_t serialize(Data* ptr);
+        static Data* deserialize(uintptr_t raw);
     };
 
    

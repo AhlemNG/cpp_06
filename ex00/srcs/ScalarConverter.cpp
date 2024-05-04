@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:39:11 by anouri            #+#    #+#             */
-/*   Updated: 2024/04/23 11:28:02 by anouri           ###   ########.fr       */
+/*   Updated: 2024/05/04 13:09:48 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int ScalarConverter::getType(std::string str)
 {
     bool points = false;
     unsigned long i = 0;
-    if (str.length() == 1 && isprint(str[0]) && !isdigit(str[0]))
+    if (isprint(str[0]) && !isdigit(str[0]))
         return (1);//char
-    if (str[i] == '-' || str[i] == '+')
+    if (str[i] == '-' || str[i] == '+' || str[i] == ' ')
         i++;//nothing to do here
     while (str[i])
     {
@@ -60,6 +60,7 @@ int ScalarConverter::getType(std::string str)
             return (2); //int
         i++;
     }
+    throw(ScalarConverter::notAvalidArgument());
     return(0);
 }
 
@@ -74,7 +75,6 @@ void ScalarConverter::fromChar(std::string str)
     std::cout << "int: " << static_cast<int>(c) << std::endl;  
     std::cout << "float: " << static_cast<float>(c) << std::endl;  
     std::cout << "double: " << static_cast<double>(c) << std::endl;  
-
 }
 
 
@@ -100,6 +100,8 @@ void ScalarConverter::fromFloat(std::string str)
     f = strtof(str.c_str(), &pEnd);
     if (*(pEnd + 1) != '\0')
 		throw notAvalidArgument();
+    if (pEnd == str || *(pEnd) != '\0' || f > std::numeric_limits<float>::max() || f < -std::numeric_limits<float>::max())
+        throw notAvalidArgument();
     //to char;
     if (!isprint(static_cast<char>(f)))
         std::cout << "char: " << "Non displayable" << std::endl;
@@ -132,10 +134,10 @@ void ScalarConverter::fromDouble(std::string str)
 {
     char *pEnd;
     double d;
-    d = strtod(str.c_str(), &pEnd);
+    d = strtold(str.c_str(), &pEnd);
     if (pEnd == str.c_str())
     {
-        throw std::invalid_argument("Invalid argument");
+        throw(ScalarConverter::notAvalidArgument());
     }
     if (pEnd == str || *(pEnd) != '\0' || d > std::numeric_limits<double>::max() || d < -std::numeric_limits<double>::max())
 		throw notAvalidArgument();
@@ -166,7 +168,7 @@ void ScalarConverter::fromDouble(std::string str)
         // to float
         std::cout  << std::fixed << std::setprecision(precision) <<"float: " << static_cast<float>(d) << "f" << std::endl; 
         //to double
-        std::cout <<  std::fixed << std::setprecision(precision) << "double: " << (d) <<  std::endl;
+        std::cout <<  std::fixed << std::setprecision(precision) << "double: " << static_cast<double>(d) <<  std::endl;
     }
 }
 
@@ -208,7 +210,6 @@ void ScalarConverter::convert(std::string str)
         return;
     try{
         type = getType(str);
-        std::cout << "type is " << type << std::endl;
         switch (type)
         {
             case 1:

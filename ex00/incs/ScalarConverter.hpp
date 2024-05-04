@@ -6,7 +6,7 @@
 /*   By: anouri <anouri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:04:43 by anouri            #+#    #+#             */
-/*   Updated: 2024/05/02 16:04:05 by anouri           ###   ########.fr       */
+/*   Updated: 2024/05/04 12:06:17 by anouri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #define SCALARCONVERTER_HPP
 
 #include "Colors.hpp"
-#include <iostream>
 #include <string>
 #include <cctype> //for isprint
 #include <exception>

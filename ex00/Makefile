@@ -6,11 +6,11 @@
 #    By: anouri <anouri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/02 16:03:37 by anouri            #+#    #+#              #
-#    Updated: 2024/05/02 16:09:50 by anouri           ###   ########.fr        #
+#    Updated: 2024/05/04 12:18:27 by anouri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME= Bureaucrat
+NAME= ./convert
 
 INCDIR= -I./incs
 

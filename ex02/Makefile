@@ -6,11 +6,11 @@
 #    By: anouri <anouri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/02 16:03:37 by anouri            #+#    #+#              #
-#    Updated: 2024/05/02 16:05:19 by anouri           ###   ########.fr        #
+#    Updated: 2024/05/04 13:18:39 by anouri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME= Bureaucrat
+NAME= base
 
 INCDIR= -I./incs
 
